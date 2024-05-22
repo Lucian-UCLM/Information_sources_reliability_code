@@ -1,8 +1,12 @@
+#include "Edge.h"
 #include <vector>
 
-class UnionFind {
+
+class UF_DS {
 public:
-    UnionFind(int size) : parent(size), rank(size, 0) {
+    UF_DS(int size) {
+        parent.resize(size);
+        rank.resize(size, 0);
         for (int i = 0; i < size; ++i) {
             parent[i] = i;
         }
@@ -10,7 +14,7 @@ public:
 
     int find(int x) {
         if (parent[x] != x) {
-            parent[x] = find(parent[x]);
+            parent[x] = find(parent[x]); // Path compression
         }
         return parent[x];
     }
@@ -20,10 +24,10 @@ public:
         int rootY = find(y);
 
         if (rootX != rootY) {
-            if (rank[rootX] < rank[rootY]) {
-                parent[rootX] = rootY;
-            } else if (rank[rootX] > rank[rootY]) {
+            if (rank[rootX] > rank[rootY]) {
                 parent[rootY] = rootX;
+            } else if (rank[rootX] < rank[rootY]) {
+                parent[rootX] = rootY;
             } else {
                 parent[rootY] = rootX;
                 rank[rootX]++;

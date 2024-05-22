@@ -87,18 +87,18 @@ int main() {
     }
 
     // Print the similarities in a file. This determines the format of the output file
-    std::ofstream outputFile(".\\data\\similarity.txt");
+    std::ofstream outputFile(".\\data\\similarity.csv");
     if (!outputFile.is_open()) {
         std::cerr << "Error: Unable to open output file" << std::endl;
         return 1;
     }
 
     //list of edges format
-    outputFile << "source;target;weight;type" << std::endl;
+    //outputFile << "source;target;weight;type" << std::endl;
     for (int i = 0; i < NUM_DOCUMENTS; i++) {
         for (int j = i+1; j < NUM_DOCUMENTS; j++) {
             //outputFile << i << ";" << j << ";" << similarity[i][j] << ";" << "undirected" << std::endl;
-            outputFile <<  similarity[i][j] << "\t";
+            outputFile <<  similarity[i][j] << ";";
         }
         outputFile << std::endl;
     }
