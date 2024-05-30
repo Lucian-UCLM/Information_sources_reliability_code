@@ -6,6 +6,7 @@
 #include "Edge.h"
 #include <fstream>
 #include <vector>
+#include <set>
 
 /**
  * @class MST
@@ -14,7 +15,7 @@
  * The MST class provides functionality to find the MST of a given network, print the MST,
  * and export the MST to a CSV file.
  */
-class MST {
+class Network_Processor {
 public:
     /**
      * @brief Constructs an MST object.
@@ -25,7 +26,7 @@ public:
      * @param size The number of nodes in the network.
      * @param network The network for which the MST is to be computed.
      */
-    MST(int size, const Network& network);
+    Network_Processor(int size, const Network& network);
 
     /**
      * @brief Prints the edges in the MST.
@@ -40,7 +41,15 @@ public:
      * Exports the edges in the MST to a CSV file with columns for source, target, weight, and type.
      * This format is suitable for visualization in tools like Gephi.
      */
-    void MST_exporter();
+    void MST_CSV_exporter();
+
+    /**
+     * @brief Exports the MST to a GraphML file.
+     * 
+     * Exports the edges in the MST to a GraphML file format, suitable for visualization in tools
+     * like yEd or Gephi.
+     */
+    void MST_GRAPHML_exporter();
 
     /**
      * @brief Finds the MST using Kruskal's algorithm.

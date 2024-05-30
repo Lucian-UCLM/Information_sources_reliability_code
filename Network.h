@@ -34,15 +34,15 @@ public:
     /**
      * @brief Adds an edge to the network.
      * 
-     * Adds an edge with the specified key, source node, target node, weight, and id.
+     * Adds an edge with the specified source node, target node, weight, and id.
+     * The key of the edge is the weight.
      * 
-     * @param key The key (weight) of the edge.
      * @param source The source node of the edge.
      * @param target The target node of the edge.
      * @param weight The weight of the edge.
      * @param id The unique identifier of the edge.
      */
-    void addEdge(double key, int source, int target, double weight, int id);
+    void addEdge(int source, int target, double weight, int id);
 
     /**
      * @brief Prints the network to the standard output.

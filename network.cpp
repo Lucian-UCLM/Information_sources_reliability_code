@@ -16,7 +16,7 @@ Network::Network(const std::string& filename) {
 
     if (!file.is_open()) {
         std::cerr << "Error: Unable to open file " << filename << std::endl;
-        return;
+        exit(1);
     }
 
     while (std::getline(file, line)) {
@@ -28,7 +28,7 @@ Network::Network(const std::string& filename) {
                 break;
             }
             weight = std::stod(cell);
-            addEdge(weight, row, col, weight, edgeId++);
+            addEdge(row, col, weight, edgeId++);
             col++;
         }
         row++;
@@ -46,8 +46,8 @@ Network::Network(const std::string& filename) {
  * @param weight The weight of the edge.
  * @param id The unique identifier of the edge.
  */
-void Network::addEdge(double key, int source, int target, double weight, int id) {
-    edges.insert(std::pair<double, Edge>(key, Edge(source, target, weight, id)));
+void Network::addEdge(int source, int target, double weight, int id) {
+    edges.insert(std::pair<double, Edge>(weight, Edge(source, target, weight, id)));
 }
 
 /**
