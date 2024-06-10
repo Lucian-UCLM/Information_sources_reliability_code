@@ -4,8 +4,10 @@
 int main()
 {
     Network network(".\\data\\similarity.csv");
-    Network_Processor Processor(21151, network);
+    const auto& edges = network.getEdges();
+    Network_Processor Processor(21152, network);
     Processor.MST_finder();
     Processor.MST_GRAPHML_exporter();
+    Processor.MST_CSV_exporter();
     return 0;
 }

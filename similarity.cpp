@@ -3,8 +3,10 @@
 #include <vector>
 #include <sstream>
 #include <cmath>
+#include <string>
 
-const int NUM_DOCUMENTS = 21151;
+
+const int NUM_DOCUMENTS = 21152;
 const int NUM_TOPICS = 20;
 const std::string INPUT_FILE = ".\\data\\processed_composition.txt";
 
@@ -54,7 +56,7 @@ void printDocument(double documents[NUM_DOCUMENTS][NUM_TOPICS]) {
 
 void calculateModulus(double documents[NUM_DOCUMENTS][NUM_TOPICS], double modulus[NUM_DOCUMENTS]) {
     double aux;
-    prinf("Calculating modulus\n");
+    printf("Calculating modulus\n");
     for (int i = 0; i < NUM_DOCUMENTS; i++) {
         aux = 0.0;
         for (int j = 0; j < NUM_TOPICS; j++) {
@@ -85,7 +87,7 @@ int main() {
 
     // Calculate the similarity between documents
     double aux;
-    prinf("Calculating similarity\n");
+    printf("Calculating similarity\n");
     for (int i = 0; i < NUM_DOCUMENTS; i++) {
         for (int j = i; j < NUM_DOCUMENTS; j++) {
             aux = 0.0;
@@ -103,7 +105,7 @@ int main() {
         }
     }
 
-    prinf("Printing similarity\n");
+    printf("Printing similarity\n");
     // Print the similarities in a file. This determines the format of the output file
     std::ofstream outputFile(".\\data\\similarity.csv");
     if (!outputFile.is_open()) {

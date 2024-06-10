@@ -59,10 +59,11 @@ public:
     void MST_finder();
 
 private:
-    const Network& network; ///< The network for which the MST is computed.
+    std::vector<Edge> edges;
     std::vector<Edge> mst; ///< Vector to store the edges in the MST.
     double mstWeight = 0; ///< Total weight of the MST.
     int size; ///< The number of nodes in the network.
+    UF_DS uf;
 };
 
 #endif

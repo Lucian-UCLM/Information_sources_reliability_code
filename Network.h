@@ -2,10 +2,13 @@
 #define NETWORK_H
 
 #include "Edge.h"
+#include <vector>
 #include <fstream>
 #include <sstream>
 #include <iostream>
-#include <map>
+#include <string>
+#include <algorithm>
+
 
 /**
  * @class Network
@@ -16,7 +19,7 @@
  */
 class Network {
 private:
-    std::multimap<double, Edge> edges; ///< Multimap to store edges keyed by weight.
+    std::vector<Edge> edges; ///< Multimap to store edges keyed by weight.
     int nodeCount = 0; ///< Count of nodes in the network.
     int edgeId = 0; ///< Unique identifier for edges.
 
@@ -54,9 +57,9 @@ public:
     /**
      * @brief Gets the edges of the network.
      * 
-     * @return std::multimap<double, Edge> The edges of the network.
+     * @return std::vector<Edge> The edges of the network.
      */
-    std::multimap<double, Edge> getEdges() const;
+    const std::vector<Edge>& getEdges() const { return edges; }
 };
 
 #endif

@@ -9,9 +9,8 @@
  * @param size The number of nodes in the network.
  * @param network The network for which the MST is to be computed.
  */
-Network_Processor::Network_Processor(int size, const Network& network) : network(network) {
-    this->size = size;
-}
+Network_Processor::Network_Processor(int numNodes, const Network& network)
+    : size(numNodes), edges(network.getEdges()), uf(numNodes) {}
 /**
  * @brief Prints the edges in the MST.
  * 
@@ -82,6 +81,7 @@ void Network_Processor::MST_GRAPHML_exporter() {
     outputFile << "</graphml>" << '\n';
     
     outputFile.close();
+    std::cout << "MST exported successfully" << std::endl;
 }
 
 /**
@@ -90,17 +90,18 @@ void Network_Processor::MST_GRAPHML_exporter() {
  * Computes the MST of the network using Kruskal's algorithm and stores the result.
  */
 void Network_Processor::MST_finder() {
-    UF_DS uf(size);
-    int u, v;
-
-    for (const auto& [weight, edge] : network.getEdges()) {
-        u = edge.getNode1();
-        v = edge.getNode2();
+    // Edges are already sorted by weight in Network constructor
+    mst.clear();
+    printf("Finding MST\n");
+    printf("Number of edges to process: %lu\n", edges.size());
+    for (const auto& edge : edges) {
+        int u = edge.getNode1();
+        int v = edge.getNode2();
 
         if (uf.find(u) != uf.find(v)) {
-            uf.unite(u, v);
             mst.push_back(edge);
-            mstWeight += weight;
+            uf.unite(u, v);
+            mstWeight += edge.getWeight();
         }
     }
 }

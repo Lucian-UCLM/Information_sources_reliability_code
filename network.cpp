@@ -3,7 +3,7 @@
 /**
  * @brief Constructs a Network from a file.
  * 
- * Reads edges from a specified file and constructs the network.
+ * Reads edges from a specified file and builds the network.
  * 
  * @param filename The name of the file to read the edges from.
  * Must be a CSV file with ";" as the delimiter.
@@ -13,7 +13,7 @@ Network::Network(const std::string& filename) {
     std::string line;
     int col, edgeId = 0, row = 0;
     double weight;
-
+    
     if (!file.is_open()) {
         std::cerr << "Error: Unable to open file " << filename << std::endl;
         exit(1);
@@ -28,11 +28,20 @@ Network::Network(const std::string& filename) {
                 break;
             }
             weight = std::stod(cell);
-            addEdge(row, col, weight, edgeId++);
+            if (weight > 0) {
+                addEdge(row, col, weight, edgeId++);
+            }
             col++;
         }
         row++;
     }
+    file.close();
+
+    // Sort edges by weight
+    std::sort(edges.begin(), edges.end(), [](const Edge& a, const Edge& b) {
+        return a.getWeight() < b.getWeight();
+    });
+
 }
 
 /**
@@ -47,7 +56,7 @@ Network::Network(const std::string& filename) {
  * @param id The unique identifier of the edge.
  */
 void Network::addEdge(int source, int target, double weight, int id) {
-    edges.insert(std::pair<double, Edge>(weight, Edge(source, target, weight, id)));
+    edges.emplace_back(source, target, weight, id);
 }
 
 /**
@@ -56,18 +65,9 @@ void Network::addEdge(int source, int target, double weight, int id) {
  * Prints the details of each edge in the network.
  */
 void Network::printNetwork() {
-    for (auto& edge : edges) {
-        std::cout << "Edge ID: " << edge.second.getId() << " Source: " << edge.second.getNode1() 
-                  << " Target: " << edge.second.getNode2() << " Weight: " << edge.second.getWeight() 
+    for (const auto& edge : edges) {
+        std::cout << "Edge ID: " << edge.getId() << " Source: " << edge.getNode1() 
+                  << " Target: " << edge.getNode2() << " Weight: " << edge.getWeight() 
                   << std::endl;
     }
-}
-
-/**
- * @brief Gets the edges of the network.
- * 
- * @return std::multimap<double, Edge> The edges of the network.
- */
-std::multimap<double, Edge> Network::getEdges() const {
-    return edges;
 }

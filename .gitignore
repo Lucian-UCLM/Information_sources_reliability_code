@@ -3,3 +3,5 @@
 *.csv
 *.gz
 *.mallet
+*.vscode
+*.graphml
